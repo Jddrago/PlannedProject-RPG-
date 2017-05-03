@@ -8,7 +8,7 @@ namespace PlannedProject_RPG_
 {
     class Character
     {
-        private int baseHP, currentHP, baseMP, currentMP, STR, DEX, INT, STRMod, DEXmod, INTmod, damageBonus, strikeBonus, dodgeBonus, spellBonus;
-        private string name;
+        protected int baseHP, currentHP, baseMP, currentMP, STR, DEX, INT, STRMod, DEXmod, INTmod, damageBonus, strikeBonus, dodgeBonus, spellBonus;
+        protected string name;
     }
 }
