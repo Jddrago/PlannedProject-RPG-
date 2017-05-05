@@ -10,10 +10,64 @@ namespace PlannedProject_RPG_
     {
         public Hero()
         {
-            
+            calcSTR();
+            calcDEX();
+            calcINT();
+            setBaseHP(STR * 10);
+            setCurrentHP(getBaseHP());
+            setBaseMP(INT * 5);
+            setCurrentMP(getBaseMP());
+            calcDamageBonus();
+            calcStrikeBonus();
+            calcDodgeBonus();
+            calcSpellBonus();
         }
 
-        public int getbaseHP()
+        public void setName(string pname)
+        {
+            if (pname.Equals(null) || pname.Equals(""))
+            {
+                name = "Hero";
+            }
+            else
+            {
+                name = pname;
+            }
+        }
+
+        public string getName()
+        {
+            return name;
+        }
+
+        public void calcSTR()
+        {
+            STR = DiceBag.rollDice(3, 6);
+            if (STR > 16)
+            {
+                STR += DiceBag.rollDice(2,6);
+            }
+        }
+
+        public void calcDEX()
+        {
+            DEX = DiceBag.rollDice(3, 6);
+            if (DEX > 16)
+            {
+                DEX += DiceBag.rollDice(2, 6);
+            }
+        }
+
+        public void calcINT()
+        {
+            INT = DiceBag.rollDice(3, 6);
+            if (INT > 16)
+            {
+                INT += DiceBag.rollDice(2, 6);
+            }
+        }
+
+        public int getBaseHP()
         {
             return baseHP;
         }
@@ -39,7 +93,7 @@ namespace PlannedProject_RPG_
             }
         }
 
-        public int getbaseMP()
+        public int getBaseMP()
         {
             return baseMP;
         }
@@ -234,7 +288,7 @@ namespace PlannedProject_RPG_
 
         public override string details()
         {
-            throw new NotImplementedException();
+            return "Name: " + getName() + "\nHP: " + getCurrentHP() + "/" + getBaseHP() + "\nMP: " + getCurrentMP() + "/" + getBaseMP() + "\nSTR: " + getStrength() + "\nDEX: " + getDexterity() + "\nINT: " + getIntelligence() + "\nDamage Bonus: " + getDamageBonus() + "\nStrike Bonus: " + getStrikeBonus() + "\nDodge Bonus: " + getDodgeBonus() + "\nSpell Bonus: " + getSpellBonus();
         }
     }
 }
