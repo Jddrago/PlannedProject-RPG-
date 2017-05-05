@@ -134,18 +134,87 @@ namespace PlannedProject_RPG_
             INTMod = intMod;
         }
 
-        public int DamageBonus()
+        public void calcDamageBonus()
         {
-            int result = 0;
             if (STR > 15)
             {
-                result = STR - 15;
+                damageBonus = STR - 15;
             }
             else if (STR < 10)
             {
-                result = STR-10;
+                damageBonus = STR - 10;
             }
-            return result;
+        }
+
+        public void calcStrikeBonus()
+        {
+            if (DEX > 14)
+            {
+                strikeBonus = (DEX - 14) / 2;
+            }
+            else if (DEX < 10)
+            {
+                strikeBonus = (DEX - 10) / 2;
+            }
+        }
+
+        public void calcDodgeBonus()
+        {
+            if (DEX > 15)
+            {
+                dodgeBonus = (DEX - 15) / 2;
+            }
+            else if (DEX < 11)
+            {
+                dodgeBonus = (DEX - 11) / 2;
+            }
+        }
+
+        public void calcSpellBonus()
+        {
+            if (INT > 15)
+            {
+                spellBonus = (INT - 15) * 2;
+            }
+            else if (INT < 10)
+            {
+                spellBonus = (INT - 10) * 2;
+            }
+        }
+
+        public int getDamageBonus()
+        {
+            return damageBonus;
+        }
+
+        public int getStrikeBonus()
+        {
+            return strikeBonus;
+        }
+
+        public int getDodgeBonus()
+        {
+            return dodgeBonus;
+        }
+
+        public int getSpellBonus()
+        {
+            return spellBonus;
+        }
+
+        public override int normalAttack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int specialAttack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void takeDamage(int damage)
+        {
+            throw new NotImplementedException();
         }
     }
 }
