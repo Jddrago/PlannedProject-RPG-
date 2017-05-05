@@ -204,15 +204,35 @@ namespace PlannedProject_RPG_
 
         public override int normalAttack()
         {
-            throw new NotImplementedException();
+            int result = (10) + damageBonus;
+            if (result < 0)
+            {
+                result = 0;
+            }
+            return result;
         }
 
         public override int specialAttack()
         {
-            throw new NotImplementedException();
+            int result = (15) + spellBonus;
+            if (result < 0)
+            {
+                result = 0;
+            }
+            currentMP -= 10;
+            return result;
         }
 
         public override void takeDamage(int damage)
+        {
+            currentHP -= damage;
+            if (currentHP < 0)
+            {
+                isAlive = false;
+            }
+        }
+
+        public override string details()
         {
             throw new NotImplementedException();
         }
