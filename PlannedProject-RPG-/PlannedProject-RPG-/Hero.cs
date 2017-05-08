@@ -8,6 +8,8 @@ namespace PlannedProject_RPG_
 {
     class Hero : Character
     {
+        private double expNeeded = 500;
+
         public Hero()
         {
             calcSTR();
@@ -254,6 +256,21 @@ namespace PlannedProject_RPG_
         public int getSpellBonus()
         {
             return spellBonus;
+        }
+
+        public void gainExp(double expGained)
+        {
+            exp += expGained;
+            if (exp >= expNeeded)
+            {
+                levelUp();
+                expNeeded *= 1.5;
+            }
+        }
+
+        private void levelUp()
+        {
+
         }
 
         public override int normalAttack()

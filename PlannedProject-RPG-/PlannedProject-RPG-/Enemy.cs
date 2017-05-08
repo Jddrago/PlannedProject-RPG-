@@ -9,7 +9,7 @@ namespace PlannedProject_RPG_
     class Enemy : Character
     {
        
-        public Enemy(int hp, int mp, int str, int dex, int intel, string name)
+        public Enemy(int hp, int mp, int str, int dex, int intel, string name, double exp)
         {
             this.name = name;
             baseHP = hp;
@@ -19,6 +19,7 @@ namespace PlannedProject_RPG_
             STR = str;
             DEX = dex;
             INT = intel;
+            setExp(exp);
         }
 
         public string getName()
@@ -144,26 +145,48 @@ namespace PlannedProject_RPG_
             spellBonus = bonus;
         }
 
+        public double getExp()
+        {
+            return exp;
+        }
+
+        public void setExp(double expAmount)
+        {
+            if (expAmount > 0)
+            {
+                exp = expAmount;
+            }
+            else
+            {
+                exp = 0;
+            }
+            
+        }
+
         public override int normalAttack()
         {
-            int damage = 10 + damageBonus;
+            int damage = (10) + damageBonus;
             return damage;
         }
 
         public override int specialAttack()
         {
             int damage = 0;
-            if (currentMP > 9)
+            if (currentMP > 10)
             {
                 currentMP -= 10;
-                damage = 15 + spellBonus;
+                damage = (15) + spellBonus;
                }
             return damage;
         }
 
         public override void takeDamage(int damage)
         {
-            currentHP += currentHP - damage;
+            currentHP -= damage;
+            if (currentHP < 0)
+            {
+                isAlive = false;
+            }
         }
 
         public override string details()
