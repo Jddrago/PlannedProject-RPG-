@@ -1,0 +1,101 @@
+Welcome to Arlo. You are the hero of this story sire and we hope you enjoy the adventure.
+ 
+The small kingdom of Arlo is in the northern corner of the continent. 
+You are from Bespin the second largest village in Arlo. It's a village in the dense forests of Cethos.
+You've lived here you're whole life, but it's time you leave home as is the custom for your people.
+It's a right of passage per say. First thing's first though, you need to select a task to complete on your jouney.
+You leave your home and make your way to the village elder Erma.
+As you approch her home you see all the other's taking on the quest. There are around fifteen or so other than you.
+Erma "It's good to see so many young people setting out to become true men and women of our village.
+I wish you all the best on your jouney, and hope to see you all back here soon.
+There are three tasks you can complete to return home. Before you go please see one of the priests to pick your task."
+You make your way out of the crowd to the first priest you see.
+Priest "Welcome child which task do you wish to take?"
+*3
+A	Win the Horde trophy in the Grand Tournament-19
+B	Take messages from the Capital to the troops at the border-24
+c	Defend a border village from bandits-34
+ 
+The Grand Tournament is a huge pristegous event that brings great honor to those who participate. 
+The Horde challange is the most difficult of challanges with only one or two competitors surviving each year.
+This will be a great way to prove myself as a warrior. You grab the entry letter from the priest ready to head for the capital.
+-43
+ 
+You've always enjoyed stories of beautiful places along the border of Arlo.
+You've wanted to see it for yourself. Why not work while you're at it?
+You take a messenger's badge and bag from the priest. He smiles kindly at you.
+Priest "Not many see pride in being a messenger. It's nice to see you value knowlegde."
+@ "I just want to travel. If I'm helping out while doing what I enjoy I'm sure to have fun working too."
+The priest thinks for a minute before responding.
+Priest "Yes I suppose you're right about that."
+He chuckles to himself before becoming serious once more.
+-43
+ 
+Combat has always been your strong suit. The priest seems a bit hesitent by your decition.
+Priest "The front lines are dangerous. I trust you are aware of this yes?"
+@ "Fighting is all I've ever been good at I'll be fine."
+A small smile spreads across his face.
+Priest "I see, well since you feel so strongly about it here."
+The priest hands you a letter.
+Priest "This is for the general at the barrecks in the capital. He will give you your post from there."
+-43
+ 
+Priest "I prey for your safe and valient return."
+@ "Thank you."
+You wave at the priest as you head for the village gate. You take one last look at your home before stepping out into the world.
+It's been three days since you left home and the capital is only a little ways off. You should make it by early afternoon.
+You stop at a village just outside the capital for lunch. You hear the locals chatting about anything and everything.
+One thing sticks out though. Some girls have gone missing, and so has anyone who has searched for them.
+*2
+A	Ask about it-53
+B	Say nothing and leave-61
+ 
+@ "Excuse me, but I happen to hear you mention some people went missing here."
+Man 1 "Yes some young girls went to play by a cave near the lake and didn't come home. When some guard went to investigate then didn't return."
+@ "I see their families must be worried. Is there anything I can do?"
+Man 2 "Oh no. We couldn't get someone else involved in this matter. We've lost enough people as it is."
+@ "Don't worry about me I'm from Bespin. This is my job. I'll see what I can do."
+With that you leave befor the men can say anything against you. You make your way to the lake where everyone has gone missing.
+-67
+ 
+I have my own work to do I don't have time for this. You finish you meal and leave. You leave the village and make you're way down the road and pass by a lake.
+You notice a cave that seems oddly out of place, but you're not sure why.
+*2
+A	Inspect the cave-67
+B	Keep going-73
+ 
+You enter the cave to find the corpses of grown men scattered about.
+This smells like it's been here a few days.
+You start to hear footsteps deeper in the cave and then a girl's scream. You go charging in to find.
+&Combat
+After freeing the girls the villagers thank you for your help. They give you a [Loot] for your troubles and you go on your way.
+ 
+You make it to the capital later than you expected to. It's later in the afternoon, but it's not quite time for dinner yet.
+You make your way to the guard post by the gate for information on where to go.
+(Tournament-77)(Messenger-)(Frontlines-)
+ 
+The guard in charge gives you directions to the arena and who to see. Once you get there a Women not much older than yourself addresses you.
+Women "Are you a contender for the games this year? You seem young compared to the others who've come."
+@ "Hello I was sent from Bespin to take on the Horde Challange. I was told to see you."
+Women "Yes that explains the age. My name's Ginana, but everyone call's me Gina. If you'll follow me we'll get you started."
+Gina showed me to the training arena, dinning hall, and bunks I'd be using until the tournament started in a week.
+I spent that week mostly training and helping Gina with miscellaneous tasks around the arena.
+Gina "Hey you want to make a little money taking care of something for me. This group of thugs have been harassing the other girls here."
+Gina "They hang out at the tavern across town. I know the girls will feel much safer working here if they were gone. What do you say?"
+*2
+A	Help the girls-94
+B	You're too busy-89
+
+@ "Sorry Gina, I've already promised my free time to helping out around here."
+Gina "I see, that's fine you help out so much already. Well I have other chores to get to now. Thanks for all the help you do."
+You feel bad since you probably could have made time, but you've already said no.
+-
+
+@ "Sure I don't see why not. I haven't been up to much lately anyway."
+Gina's face lights up at your response. She gives you a big bear hug you wouldn't expect from her size.
+@ "Gina I can't breath."
+Gina "Oh! Sorry I got excited. Okay so the thugs are called the Rat Gang. Just get them to leave us alone. That's all we want."
+@ "Sure thing Gina. Consider it done."
+You make your way to the tavern in question to stake out the place. It's pretty quiet and empty considering it's noon.
+You take a seat at the bar and wait for the gang to show up. It doesn't take long to hear a comotion outside.
+A group comes busting through the door.
