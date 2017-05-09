@@ -13,7 +13,8 @@ namespace PlannedProject_RPG_
         DRINK_MANA_POTION,
         NORMAL_ATTACK,
         SPECIAL_ATTACK,
-        CHANGE_EQUIPMENT
+        CHANGE_EQUIPMENT,
+        FLEE
     }
 
     class Combat
@@ -44,7 +45,7 @@ namespace PlannedProject_RPG_
             while (running)
             {
 
-                if(player.IsAlive() && enemy.IsAlive())
+                if (player.IsAlive() && enemy.IsAlive())
                 {
 
                     if (playerTurn)
@@ -56,7 +57,8 @@ namespace PlannedProject_RPG_
                             default:
                                 throw new NotImplementedException();
                         }
-                    } else
+                    }
+                    else
                     {
 
                     }
@@ -72,15 +74,51 @@ namespace PlannedProject_RPG_
 
         public CombatAction GetAction()
         {
-            Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
+            //bool choosing = true;
+
+            //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
+            Console.WriteLine(player.details());
+            Console.WriteLine(enemy.details());
             Console.WriteLine("\nWhat do you do?\n1)Drink Health Potion\n2)Drink Mana Potion\n3)Normal Attack\n4)Special Attack\n5)Change Equipment");
+
+            while (true)
+            {
+                var res = Console.ReadLine();
+                int choice;
+                if (Int32.TryParse(res, out choice))
+                {
+                    try
+                    {
+                        return this.ParseAction(choice);
+                    } catch (IndexOutOfRangeException e)
+                    {
+                        Console.WriteLine("Invalid choice; Please try again.");
+                    }
+                }
+            }
+
             throw new NotImplementedException();
         }
 
-        override
-        public string ToString()
+        public CombatAction ParseAction(int choice)
         {
-            return null;
+            switch (choice)
+            {
+                case 1:
+                    return CombatAction.DRINK_HEALTH_POTION;
+                case 2:
+                    return CombatAction.DRINK_MANA_POTION;
+                case 3:
+                    return CombatAction.NORMAL_ATTACK;
+                case 4:
+                    return CombatAction.SPECIAL_ATTACK;
+                case 5:
+                    return CombatAction.CHANGE_EQUIPMENT;
+                case 6:
+                    return CombatAction.FLEE;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
         }
     }
 }
