@@ -18,6 +18,7 @@ namespace PlannedProject_RPG_
             calcINT();
             setHPandStats();
             currentWeapon = new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC);
+            currentArmor = new Armor(ArmorType.CLOTH);
         }
 
         private void setHPandStats()
