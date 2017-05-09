@@ -10,7 +10,14 @@ namespace PlannedProject_RPG_
     {
         static void Main(string[] args)
         {
-            
+            var p = new Hero();
+
+
+
+
+            var e = new Enemy(10, 10, 2, 2, 2, "Bort");
+
+            new Combat(p, e).Start();
         }
     }
 }
