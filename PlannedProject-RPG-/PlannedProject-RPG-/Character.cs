@@ -10,11 +10,16 @@ namespace PlannedProject_RPG_
     {
         protected int baseHP, currentHP, baseMP, currentMP, STR, DEX, INT, STRMod, DEXMod, INTMod, damageBonus, strikeBonus, dodgeBonus, spellBonus,lvl;
         protected string name;
-        protected bool isAlive = true;
+        protected bool alive = true;
         protected double exp = 0;
         protected Weapon currentWeapon;
         protected Armor currentArmor;
 
+
+        public bool IsAlive()
+        {
+            return this.alive;
+        }
 
         public abstract int normalAttack();
         public abstract int specialAttack();
