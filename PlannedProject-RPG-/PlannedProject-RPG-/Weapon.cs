@@ -15,7 +15,8 @@ namespace PlannedProject_RPG_
         AXE,
         SPEAR
     };
-    public enum WeaponAttribute{
+    public enum WeaponAttribute
+    {
         BASIC = 0,
         FIRE = 3,
         LIGHTNING = 4,

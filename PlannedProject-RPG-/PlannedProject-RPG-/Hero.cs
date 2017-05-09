@@ -276,6 +276,7 @@ namespace PlannedProject_RPG_
             if (exp >= expNeeded)
             {
                 levelUp();
+                exp -= expNeeded;
                 expNeeded *= 1.5;
             }
         }
