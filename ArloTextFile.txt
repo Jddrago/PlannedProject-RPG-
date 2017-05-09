@@ -98,4 +98,8 @@ Gina "Oh! Sorry I got excited. Okay so the thugs are called the Rat Gang. Just g
 @ "Sure thing Gina. Consider it done."
 You make your way to the tavern in question to stake out the place. It's pretty quiet and empty considering it's noon.
 You take a seat at the bar and wait for the gang to show up. It doesn't take long to hear a comotion outside.
-A group comes busting through the door.
+A group comes busting through the door. They're load, roudy, and already drunk.
+One grabs a weatress by the coller and yells.
+Thug "We want the strongest stuff you've got, and we won't take no for an answer."
+After seeing the girl pushed to the ground, you rush them.
+&Combat
