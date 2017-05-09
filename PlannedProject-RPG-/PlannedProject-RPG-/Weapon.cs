@@ -16,20 +16,20 @@ namespace PlannedProject_RPG_
         SPEAR
     };
     public enum WeaponAttribute{
-        BASIC,
-        FIRE,
-        LIGHTNING,
-        POISON,
-        DEMON,
-        DIVINE,
-        ULTIMATE
+        BASIC = 0,
+        FIRE = 3,
+        LIGHTNING = 4,
+        POISON = 2,
+        DEMON = 5,
+        DIVINE = 6,
+        ULTIMATE = 8
     };
-    class Weapon
+    public class Weapon
     {
         private string name;
         private WeaponType weapon;
         private WeaponAttribute attribute;
-        private int weaponDamage = 0;
+        private string weaponRoll = "";
 
         public Weapon(WeaponType type, WeaponAttribute attribute)
         {
@@ -57,15 +57,27 @@ namespace PlannedProject_RPG_
             this.attribute = attribute;
         }
 
-        public int getDamage()
+        public void setWeaponRoll()
         {
-            
-            return weaponDamage;
+            switch (this.weapon)
+            {
+                case WeaponType.DAGGER: weaponRoll = "1d4"; break;
+                case WeaponType.SWORD: weaponRoll = "1d6"; break;
+                case WeaponType.SPEAR: weaponRoll = "1d8"; break;
+                case WeaponType.MACE: weaponRoll = "1d10"; break;
+                case WeaponType.AXE: weaponRoll = "2d6"; break;
+            }
         }
 
-        public void setDamage()
+        public int weaponDamage()
         {
-           
+            string[] temp = weaponRoll.Split('d');
+            return DiceBag.rollDice(int.Parse(temp[0]),int.Parse(temp[1]),int.Parse(this.attribute.ToString()));
+        }
+
+        public string weaponDetails()
+        {
+            return name + ". Attack: " + weaponRoll + "+" + int.Parse(this.attribute.ToString());
         }
     }
 }

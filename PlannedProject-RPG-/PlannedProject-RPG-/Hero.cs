@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PlannedProject_RPG_
 {
     class Hero : Character
@@ -15,9 +16,15 @@ namespace PlannedProject_RPG_
             calcSTR();
             calcDEX();
             calcINT();
-            setBaseHP(STR * 10);
+            setHPandStats();
+            currentWeapon = new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC);
+        }
+
+        private void setHPandStats()
+        {
+            setBaseHP(getStrength() * 10);
             setCurrentHP(getBaseHP());
-            setBaseMP(INT * 5);
+            setBaseMP(getIntelligence() * 5);
             setCurrentMP(getBaseMP());
             calcDamageBonus();
             calcStrikeBonus();
@@ -258,6 +265,11 @@ namespace PlannedProject_RPG_
             return spellBonus;
         }
 
+        public void setWeapon(Weapon w)
+        {
+            currentWeapon = w;
+        }
+
         public void gainExp(double expGained)
         {
             exp += expGained;
@@ -270,12 +282,16 @@ namespace PlannedProject_RPG_
 
         private void levelUp()
         {
-
+            lvl++;
+            setStrength(getStrength() + DiceBag.rollDice(1,4));
+            setDexterity(getDexterity() + DiceBag.rollDice(1, 4));
+            setIntelligence(getIntelligence() + DiceBag.rollDice(1, 4));
+            setHPandStats();
         }
 
         public override int normalAttack()
         {
-            int result = (10) + damageBonus;
+            int result = (currentWeapon.weaponDamage()) + damageBonus;
             if (result < 0)
             {
                 result = 0;
@@ -305,7 +321,20 @@ namespace PlannedProject_RPG_
 
         public override string details()
         {
-            return "Name: " + getName() + "\nHP: " + getCurrentHP() + "/" + getBaseHP() + "\nMP: " + getCurrentMP() + "/" + getBaseMP() + "\nSTR: " + getStrength() + "\nDEX: " + getDexterity() + "\nINT: " + getIntelligence() + "\nDamage Bonus: " + getDamageBonus() + "\nStrike Bonus: " + getStrikeBonus() + "\nDodge Bonus: " + getDodgeBonus() + "\nSpell Bonus: " + getSpellBonus();
+            return "Name: " + getName()
+                +"\nLevel: "+ lvl
+                +"\nEXP: " + exp +"/"+ expNeeded
+                +"\nHP: " + getCurrentHP() + "/" + getBaseHP()
+                +"\nMP: " + getCurrentMP() + "/" + getBaseMP()
+                +"\nSTR: " + getStrength()
+                +"\nDEX: " + getDexterity()
+                +"\nINT: " + getIntelligence()
+                +"\nDamage Bonus: " + getDamageBonus()
+                +"\nStrike Bonus: " + getStrikeBonus()
+                +"\nDodge Bonus: " + getDodgeBonus()
+                +"\nSpell Bonus: " + getSpellBonus()
+                +"\nWeapon: " + currentWeapon.weaponDetails()
+                +"\nArmor: " + currentArmor.armorDetails();
         }
     }
 }

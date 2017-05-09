@@ -9,7 +9,7 @@ namespace PlannedProject_RPG_
     class Enemy : Character
     {
        
-        public Enemy(int hp, int mp, int str, int dex, int intel, string name, double exp)
+        public Enemy(int hp, int mp, int str, int dex, int intel, string name)
         {
             this.name = name;
             baseHP = hp;
@@ -19,7 +19,7 @@ namespace PlannedProject_RPG_
             STR = str;
             DEX = dex;
             INT = intel;
-            setExp(exp);
+            setExp((new Random().Next(20) +1 )*10);
         }
 
         public string getName()

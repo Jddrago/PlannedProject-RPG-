@@ -10,6 +10,7 @@ namespace PlannedProject_RPG_
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }

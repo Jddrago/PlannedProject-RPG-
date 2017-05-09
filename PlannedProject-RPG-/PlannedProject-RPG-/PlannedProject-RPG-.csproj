@@ -43,13 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armor.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="DiceBag.cs" />
     <Compile Include="Die.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="HealthPotion.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="MagicPotion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
