@@ -15,7 +15,8 @@ namespace PlannedProject_RPG_
         AXE,
         SPEAR
     };
-    public enum WeaponAttribute{
+    public enum WeaponAttribute
+    {
         BASIC = 0,
         FIRE = 3,
         LIGHTNING = 4,
@@ -77,7 +78,8 @@ namespace PlannedProject_RPG_
 
         public string weaponDetails()
         {
-            return name + ". Attack: " + weaponRoll + "+" + int.Parse(this.attribute.ToString());
+            //return name + ". Attack: " + weaponRoll + "+" + int.Parse(this.attribute.ToString());
+            return String.Format("{0}. Attack: {1}+{2}", name, weaponRoll, (int)this.attribute);
         }
     }
 }
