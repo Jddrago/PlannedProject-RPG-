@@ -60,6 +60,7 @@ namespace PlannedProject_RPG_
                     if (playerTurn)
                     {
                         var action = GetPlayerAction();
+                        var dmg = -1;
                         CombatRoll roll;
                         switch (action)
                         {
@@ -71,13 +72,27 @@ namespace PlannedProject_RPG_
                                 break;
                             case CombatAction.NORMAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                if(roll == CombatRoll.FAIL)
+                                switch (roll)
                                 {
-                                    player.takeDamage(player.normalAttack() / 2);
-                                } else
-                                {
-                                    enemy.takeDamage(player.normalAttack() * (int)roll);
+                                    case CombatRoll.FAIL:
+                                        dmg = player.normalAttack() / 2;
+                                        player.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You miss the {0} and hit yourself for {1} damage", enemy.getName(), dmg));
+                                        break;
+                                    case CombatRoll.PASS:
+                                    case CombatRoll.CRIT:
+                                    case CombatRoll.DOUBLT_CRIT:
+                                        dmg = player.normalAttack() * (int)roll;
+                                        enemy.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll==CombatRoll.PASS)?"":((roll==CombatRoll.CRIT)?"(CRIT)":"(DOUBLE CRIT)"))));
+                                        break;
                                 }
+
+                                //if(roll == CombatRoll.FAIL)
+                                //{
+                                //} else
+                                //{
+                                //}
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
@@ -118,14 +133,22 @@ namespace PlannedProject_RPG_
                         }
 
                         roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                        if (roll == CombatRoll.FAIL)
+
+
+                        switch (roll)
                         {
-                            enemy.takeDamage(dmg / 2);
-                        }
-                        else
-                        {
-                            dmg *= (int)roll;
-                            player.takeDamage(dmg);
+                            case CombatRoll.FAIL:
+                                dmg = player.normalAttack() / 2;
+                                player.takeDamage(dmg);
+                                Console.WriteLine(String.Format("The {0} misses you and hit itself for {1} damage", enemy.getName(), dmg));
+                                break;
+                            case CombatRoll.PASS:
+                            case CombatRoll.CRIT:
+                            case CombatRoll.DOUBLT_CRIT:
+                                dmg = player.normalAttack() * (int)roll;
+                                enemy.takeDamage(dmg);
+                                Console.WriteLine(String.Format("The {0} hit you for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
+                                break;
                         }
 
                     }
@@ -143,6 +166,8 @@ namespace PlannedProject_RPG_
         {
             var AtkMods = AtkRoll + attacker.getStrikeBonus();
             var DefMods = DefRoll + defender.getDodgeBonus();
+
+            Console.WriteLine(String.Format("==================\n\nATKROLL: {0}\tATKMODS: {1}\nDEFROLL: {2}\tDEFMODS: {3}\n\n==================", AtkRoll, AtkMods, DefRoll, DefMods));
 
             if(AtkRoll == 20)
             {
