@@ -25,6 +25,7 @@ namespace PlannedProject_RPG_
         DOUBLT_CRIT = 4
     }
 
+
     class Combat
     {
         private bool running;
@@ -63,8 +64,10 @@ namespace PlannedProject_RPG_
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
+                                player.getInventory().useHealthPotion();
                                 break;
                             case CombatAction.DRINK_MANA_POTION:
+                                player.getInventory().useMagicPotion();
                                 break;
                             case CombatAction.NORMAL_ATTACK:
                                 dmg = player.normalAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
@@ -72,10 +75,13 @@ namespace PlannedProject_RPG_
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
                                 dmg = player.specialAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                enemy.takeDamage(dmg);
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
-                                break;
+                                throw new IndexOutOfRangeException();
+                                //break;
                             case CombatAction.FLEE:
+
                                 break;
                             default:
                                 throw new IndexOutOfRangeException();
@@ -101,8 +107,6 @@ namespace PlannedProject_RPG_
                         {
                             throw new NotImplementedException();
                         }
-
-
 
                     }
                     playerTurn = !playerTurn;
@@ -174,7 +178,7 @@ namespace PlannedProject_RPG_
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
             Console.WriteLine(player.details());
             Console.WriteLine(enemy.details());
-            Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion\n\t6)Flee");
+            Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 
             while (true)
             {
@@ -209,8 +213,8 @@ namespace PlannedProject_RPG_
                     return CombatAction.DRINK_HEALTH_POTION;
                 case 5:
                     return CombatAction.DRINK_MANA_POTION;
-                case 6:
-                    return CombatAction.FLEE;
+                //case 6:
+                //    return CombatAction.FLEE;
                 default:
                     throw new IndexOutOfRangeException();
             }
