@@ -8,6 +8,8 @@ namespace PlannedProject_RPG_
 {
     class Program
     {
+
+
         const string death = "__   _______ _   _  ______ _____ ___________  \n" +
 "\\ \\ / /  _  | | | | |  _  \\_   _|  ___|  _  \\ \n" +
 " \\ V /| | | | | | | | | | | | | | |__ | | | | \n" +

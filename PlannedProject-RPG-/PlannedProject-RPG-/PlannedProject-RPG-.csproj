@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arlo.cs" />
     <Compile Include="Armor.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Combat.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Loot.cs" />
     <Compile Include="MagicPotion.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
