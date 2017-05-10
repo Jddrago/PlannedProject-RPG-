@@ -9,7 +9,6 @@ namespace PlannedProject_RPG_
     class Program
     {
 
-
         const string death = "__   _______ _   _  ______ _____ ___________  \n" +
 "\\ \\ / /  _  | | | | |  _  \\_   _|  ___|  _  \\ \n" +
 " \\ V /| | | | | | | | | | | | | | |__ | | | | \n" +
@@ -20,63 +19,64 @@ namespace PlannedProject_RPG_
 
         static void Main(string[] args)
         {
+            new Arlo("../../../../ArloTextFile.txt").Start();
 
-            Enemy[] enemies = {
-                new Enemy(5, 10, 10, 3, 3, "Rat", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
-                new Enemy(10, 10, 10, 7, 7, "Thug", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
-                new Enemy(50, 10, 10, 10, 10, "Dragon", new Weapon(WeaponType.AXE, WeaponAttribute.FIRE), new Armor(ArmorType.CLOTH)),
-                new Enemy(250, 1000, 50, 25, 30, "Astral Kraken", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
-        };
+        //    Enemy[] enemies = {
+        //        new Enemy(5, 10, 10, 3, 3, "Rat", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
+        //        new Enemy(10, 10, 10, 7, 7, "Thug", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
+        //        new Enemy(50, 10, 10, 10, 10, "Dragon", new Weapon(WeaponType.AXE, WeaponAttribute.FIRE), new Armor(ArmorType.CLOTH)),
+        //        new Enemy(250, 1000, 50, 25, 30, "Astral Kraken", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
+        //};
 
-                    Console.WriteLine();
+        //            Console.WriteLine();
 
-            Hero p = null;
+        //    Hero p = null;
 
 
 
-            bool rolling = true;
+        //    bool rolling = true;
 
-            while (rolling)
-            {
-                p = new Hero();
-                Console.WriteLine(p.details());
+        //    while (rolling)
+        //    {
+        //        p = new Hero();
+        //        Console.WriteLine(p.details());
 
-                Console.WriteLine("=======================\n\nRoll again? (y/n)");
-                var resp = Console.ReadLine();
+        //        Console.WriteLine("=======================\n\nRoll again? (y/n)");
+        //        var resp = Console.ReadLine();
 
-                rolling = resp.Equals("y");
-            }
+        //        rolling = resp.Equals("y");
+        //    }
 
-            bool naming = true;
-            string name = "";
-            while (naming)
-            {
-                Console.WriteLine("What do you want to name your hero?");
-                name = Console.ReadLine();
-                Console.WriteLine(String.Format("Are you sure you want to name your hero {0}? (y/n)", name));
-                var res = Console.ReadLine();
-                naming = !res.Equals("y");
-            }
+        //    bool naming = true;
+        //    string name = "";
+        //    while (naming)
+        //    {
+        //        Console.WriteLine("What do you want to name your hero?");
+        //        name = Console.ReadLine();
+        //        Console.WriteLine(String.Format("Are you sure you want to name your hero {0}? (y/n)", name));
+        //        var res = Console.ReadLine();
+        //        naming = !res.Equals("y");
+        //    }
 
-            p.setName(name);
+        //    p.setName(name);
 
-            bool run = true;
+        //    bool run = true;
             
-            for(int i = 0; i < enemies.Length && run; i++){
-                var e = enemies[i];
-                new Combat(p, e).Start();
+        //    for(int i = 0; i < enemies.Length && run; i++){
+        //        var e = enemies[i];
+        //        new Combat(p, e).Start();
 
-                if (p.IsAlive())
-                {
-                    Console.WriteLine("You killed the "+e.getName());
-                } else
-                {
-                    run = false;
-                    Console.WriteLine(death);
-                }
-                Console.WriteLine(p.details());
+        //        if (p.IsAlive())
+        //        {
+        //            Console.WriteLine("You killed the "+e.getName());
+        //        } else
+        //        {
+        //            run = false;
+        //            Console.WriteLine(death);
+        //        }
+        //        Console.WriteLine(p.details());
 
-            }
+        //    }
 
             Console.Read();
         }

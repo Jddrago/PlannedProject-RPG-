@@ -27,6 +27,22 @@ namespace PlannedProject_RPG_
             currentArmor = a;
         }
 
+        public static Enemy GenerateEnemy(string e)
+        {
+            switch (e)
+            {
+                case "Thug":
+                    return new Enemy(10, 10, 10, 7, 7, "Thug", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH));
+                case "Bandit":
+                    return new Enemy(10, 10, 10, 7, 7, "Thug", new Weapon(WeaponType.MACE, WeaponAttribute.BASIC), new Armor(ArmorType.LEATHER));
+                case "Dragon":
+                    return new Enemy(50, 10, 10, 10, 10, "Dragon", new Weapon(WeaponType.AXE, WeaponAttribute.FIRE), new Armor(ArmorType.CLOTH));
+                case "Astral Kraken":
+                    return new Enemy(250, 1000, 50, 25, 30, "Astral Kraken", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH));
+                default:
+                    return new Enemy(10, 30, 12, 12, 12, e, new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.LEATHER));
+            }
+        }
         public string getName()
         {
             return name;

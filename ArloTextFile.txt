@@ -8,7 +8,7 @@ Erma "It's good to see so many young people setting out to become true men and w
 Erma "I wish you all the best on your jouney, and hope to see you all back here soon."
 You make your way out of the crowd to the first priest you see.
 Priest "Welcome child are you ready for your task?"
-*3
+*2
 +Win the Horde trophy in the Grand Tournament:003
 +Don't leave the village:002
 ==
