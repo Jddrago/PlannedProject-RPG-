@@ -17,6 +17,14 @@ namespace PlannedProject_RPG_
         FLEE
     }
 
+    enum CombatRoll
+    {
+        FAIL = 0,
+        PASS = 1,
+        CRIT = 2,
+        DOUBLT_CRIT = 4
+    }
+
     class Combat
     {
         private bool running;
@@ -72,6 +80,26 @@ namespace PlannedProject_RPG_
                     }
                     else
                     {
+                        var dmg = -1;
+                        var StatTotal = enemy.getSTR() + enemy.getINT();
+                        var r = new Random().NextDouble();
+
+                        var Ratio = enemy.getSTR() / StatTotal;
+
+                        if(r < Ratio)
+                        {
+                            dmg = enemy.normalAttack();
+                        } else 
+                        {
+                            dmg = enemy.specialAttack();
+                        }
+
+                        if(dmg == -1)
+                        {
+                            throw new NotImplementedException();
+                        }
+
+
 
                     }
                     playerTurn = !playerTurn;
@@ -81,6 +109,44 @@ namespace PlannedProject_RPG_
                     running = false;
                 }
 
+            }
+        }
+
+        public CombatRoll GetCombatRoll(Character attacker, Character defender)
+        {
+            var AtkRoll = DiceBag.rollDice(1, 20);
+            var DefRoll = DiceBag.rollDice(1, 20);
+            //var AtkMods = AtkRoll + attacker.
+
+            if(AtkRoll == 20)
+            {
+                if(DefRoll == 20)
+                {
+                    //get the stats and find who won
+                } else if(DefRoll == 1)
+                {
+                    //double crit
+                    return CombatRoll.DOUBLT_CRIT;
+                } else
+                {
+                    //attack passes before bonuses, CRIT
+                    return CombatRoll.CRIT;
+                }
+            } else if(AtkRoll == 1)
+            {
+                //attack fails
+                return CombatRoll.FAIL;
+            } else
+            {
+                if(DefRoll == 20)
+                {
+                    //fail
+                    return CombatRoll.FAIL;
+                } else
+                {
+                    //check bonuses and find who won
+
+                }
             }
         }
 

@@ -8,7 +8,7 @@ namespace PlannedProject_RPG_
 {
     class Enemy : Character
     {
-       
+
         public Enemy(int hp, int mp, int str, int dex, int intel, string name)
         {
             this.name = name;
@@ -19,7 +19,7 @@ namespace PlannedProject_RPG_
             STR = str;
             DEX = dex;
             INT = intel;
-            setExp((new Random().Next(20) +1 )*10);
+            setExp((new Random().Next(20) + 1) * 10);
         }
 
         public string getName()
@@ -160,7 +160,7 @@ namespace PlannedProject_RPG_
             {
                 exp = 0;
             }
-            
+
         }
 
         public override int normalAttack()
@@ -176,7 +176,7 @@ namespace PlannedProject_RPG_
             {
                 currentMP -= 10;
                 damage = (15) + spellBonus;
-               }
+            }
             return damage;
         }
 
@@ -191,9 +191,9 @@ namespace PlannedProject_RPG_
 
         public override string details()
         {
-            String status = name+"Current Health: "+currentHP+"\n Current Mana: "+currentMP+"\n Strength: "+STR+
-                "\n Dexterity: "+ DEX+"\n Intelligence: "+INT;
-            return status; 
+            String status = name + "Current Health: " + currentHP + "\n Current Mana: " + currentMP + "\n Strength: " + STR +
+                "\n Dexterity: " + DEX + "\n Intelligence: " + INT;
+            return status;
         }
     }
 }
