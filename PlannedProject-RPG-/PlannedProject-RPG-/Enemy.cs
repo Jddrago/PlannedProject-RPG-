@@ -8,13 +8,7 @@ namespace PlannedProject_RPG_
 {
     class Enemy : Character
     {
-<<<<<<< HEAD
-
-        public Enemy(int hp, int mp, int str, int dex, int intel, string name)
-=======
-       
         public Enemy(int hp, int mp, int str, int dex, int intel, string name, Weapon w, Armor a)
->>>>>>> 08f02d7c7d725675fbea76f7f4f5bb529aca0f90
         {
             this.name = name;
             baseHP = hp;
@@ -24,13 +18,9 @@ namespace PlannedProject_RPG_
             STR = str;
             DEX = dex;
             INT = intel;
-<<<<<<< HEAD
-            setExp((new Random().Next(20) + 1) * 10);
-=======
             setExp((new Random().Next(20) +1 )*10);
             currentWeapon = w;
             currentArmor = a;
->>>>>>> 08f02d7c7d725675fbea76f7f4f5bb529aca0f90
         }
 
         public string getName()
