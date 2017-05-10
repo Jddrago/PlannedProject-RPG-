@@ -251,12 +251,12 @@ namespace PlannedProject_RPG_
             return damageBonus;
         }
 
-        public int getStrikeBonus()
+        public override int getStrikeBonus()
         {
             return strikeBonus;
         }
 
-        public int getDodgeBonus()
+        public override int getDodgeBonus()
         {
             return dodgeBonus;
         }

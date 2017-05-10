@@ -120,7 +120,7 @@ namespace PlannedProject_RPG_
         {
             damageBonus = bonus;
         }
-        public int getStrikeBonus()
+        public override int getStrikeBonus()
         {
             return strikeBonus;
         }
@@ -128,7 +128,7 @@ namespace PlannedProject_RPG_
         {
             strikeBonus = bonus;
         }
-        public int getDodgeBonus()
+        public override int getDodgeBonus()
         {
             return dodgeBonus;
         }
