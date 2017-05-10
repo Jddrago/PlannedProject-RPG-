@@ -17,6 +17,15 @@ namespace PlannedProject_RPG_
         FLEE
     }
 
+    enum CombatRoll
+    {
+        FAIL = 0,
+        PASS = 1,
+        CRIT = 2,
+        DOUBLT_CRIT = 4
+    }
+
+
     class Combat
     {
         private bool running;
@@ -51,20 +60,28 @@ namespace PlannedProject_RPG_
                     if (playerTurn)
                     {
                         var action = GetPlayerAction();
-
+                        var dmg = -1;
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
+                                player.getInventory().useHealthPotion();
                                 break;
                             case CombatAction.DRINK_MANA_POTION:
+                                player.getInventory().useMagicPotion();
                                 break;
                             case CombatAction.NORMAL_ATTACK:
+                                dmg = player.normalAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                enemy.takeDamage(dmg);
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
+                                dmg = player.specialAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                enemy.takeDamage(dmg);
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
-                                break;
+                                throw new IndexOutOfRangeException();
+                                //break;
                             case CombatAction.FLEE:
+
                                 break;
                             default:
                                 throw new IndexOutOfRangeException();
@@ -72,6 +89,24 @@ namespace PlannedProject_RPG_
                     }
                     else
                     {
+                        var dmg = -1;
+                        var StatTotal = enemy.getSTR() + enemy.getINT();
+                        var r = new Random().NextDouble();
+
+                        var Ratio = enemy.getSTR() / StatTotal;
+
+                        if(r < Ratio)
+                        {
+                            dmg = enemy.normalAttack();
+                        } else 
+                        {
+                            dmg = enemy.specialAttack();
+                        }
+
+                        if(dmg == -1)
+                        {
+                            throw new NotImplementedException();
+                        }
 
                     }
                     playerTurn = !playerTurn;
@@ -84,6 +119,57 @@ namespace PlannedProject_RPG_
             }
         }
 
+        public CombatRoll GetCombatRoll(Character attacker, Character defender, int AtkRoll, int DefRoll)
+        {
+            var AtkMods = AtkRoll + attacker.getStrikeBonus();
+            var DefMods = DefRoll + defender.getDodgeBonus();
+
+            if(AtkRoll == 20)
+            {
+                if(DefRoll == 20)
+                {
+                    //get the stats and find who won
+                    if(AtkMods > DefMods)
+                    {
+                        return CombatRoll.PASS;
+                    } else
+                    {
+                        return CombatRoll.FAIL;
+                    }
+                } else if(DefRoll == 1)
+                {
+                    //double crit
+                    return CombatRoll.DOUBLT_CRIT;
+                } else
+                {
+                    //attack passes before bonuses, CRIT
+                    return CombatRoll.CRIT;
+                }
+            } else if(AtkRoll == 1)
+            {
+                //attack fails
+                return CombatRoll.FAIL;
+            } else
+            {
+                if(DefRoll == 20)
+                {
+                    //fail
+                    return CombatRoll.FAIL;
+                } else
+                {
+                    //check bonuses and find who won
+                    if (AtkMods > DefMods)
+                    {
+                        return CombatRoll.PASS;
+                    }
+                    else
+                    {
+                        return CombatRoll.FAIL;
+                    }
+                }
+            }
+        }
+
         /* Handled internally since it relies on player input and is untestable */
         private CombatAction GetPlayerAction()
         {
@@ -92,7 +178,7 @@ namespace PlannedProject_RPG_
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
             Console.WriteLine(player.details());
             Console.WriteLine(enemy.details());
-            Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion\n\t6)Flee");
+            Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 
             while (true)
             {
@@ -127,8 +213,8 @@ namespace PlannedProject_RPG_
                     return CombatAction.DRINK_HEALTH_POTION;
                 case 5:
                     return CombatAction.DRINK_MANA_POTION;
-                case 6:
-                    return CombatAction.FLEE;
+                //case 6:
+                //    return CombatAction.FLEE;
                 default:
                     throw new IndexOutOfRangeException();
             }

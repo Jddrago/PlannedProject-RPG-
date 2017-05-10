@@ -8,7 +8,6 @@ namespace PlannedProject_RPG_
 {
     class Enemy : Character
     {
-       
         public Enemy(int hp, int mp, int str, int dex, int intel, string name, Weapon w, Armor a)
         {
             this.name = name;
@@ -162,7 +161,7 @@ namespace PlannedProject_RPG_
             {
                 exp = 0;
             }
-            
+
         }
 
         public override int normalAttack()
@@ -178,7 +177,7 @@ namespace PlannedProject_RPG_
             {
                 currentMP -= 10;
                 damage = (15) + spellBonus;
-               }
+            }
             return damage;
         }
 
@@ -193,9 +192,9 @@ namespace PlannedProject_RPG_
 
         public override string details()
         {
-            String status = name+"Current Health: "+currentHP+"\n Current Mana: "+currentMP+"\n Strength: "+STR+
-                "\n Dexterity: "+ DEX+"\n Intelligence: "+INT;
-            return status; 
+            String status = name + "Current Health: " + currentHP + "\n Current Mana: " + currentMP + "\n Strength: " + STR +
+                "\n Dexterity: " + DEX + "\n Intelligence: " + INT;
+            return status;
         }
     }
 }
