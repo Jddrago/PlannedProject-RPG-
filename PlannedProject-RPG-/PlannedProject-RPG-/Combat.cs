@@ -60,8 +60,7 @@ namespace PlannedProject_RPG_
                     if (playerTurn)
                     {
                         var action = GetPlayerAction();
-                        var dmg = -1;
-                        CombatRoll roll ;
+                        CombatRoll roll;
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
@@ -72,19 +71,24 @@ namespace PlannedProject_RPG_
                                 break;
                             case CombatAction.NORMAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                dmg = player.normalAttack() * (int)roll;
                                 if(roll == CombatRoll.FAIL)
                                 {
-                                    player.takeDamage(dmg / 2);
+                                    player.takeDamage(player.normalAttack() / 2);
                                 } else
                                 {
-                                    enemy.takeDamage(dmg);
+                                    enemy.takeDamage(player.normalAttack() * (int)roll);
                                 }
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                dmg = player.specialAttack() * (int)roll;
-                                enemy.takeDamage(dmg);
+                                if (roll == CombatRoll.FAIL)
+                                {
+                                    player.takeDamage(player.specialAttack() / 2);
+                                }
+                                else
+                                {
+                                    enemy.takeDamage(player.specialAttack() * (int)roll);
+                                }
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
                                 throw new IndexOutOfRangeException();
@@ -114,13 +118,13 @@ namespace PlannedProject_RPG_
                         }
 
                         roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                        dmg *= (int)roll;
                         if (roll == CombatRoll.FAIL)
                         {
                             enemy.takeDamage(dmg / 2);
                         }
                         else
                         {
+                            dmg *= (int)roll;
                             player.takeDamage(dmg);
                         }
 
