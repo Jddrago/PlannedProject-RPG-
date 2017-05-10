@@ -19,6 +19,7 @@ namespace PlannedProject_RPG_
 
     enum CombatRoll
     {
+        CRIT_FAIL = -1,
         FAIL = 0,
         PASS = 1,
         CRIT = 2,
@@ -74,10 +75,13 @@ namespace PlannedProject_RPG_
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
                                 switch (roll)
                                 {
-                                    case CombatRoll.FAIL:
+                                    case CombatRoll.CRIT_FAIL:
                                         dmg = player.normalAttack() / 2;
                                         player.takeDamage(dmg);
                                         Console.WriteLine(String.Format("You miss the {0} and hit yourself for {1} damage", enemy.getName(), dmg));
+                                        break;
+                                    case CombatRoll.FAIL:
+                                        Console.WriteLine(String.Format("You miss the {0}", enemy.getName()));
                                         break;
                                     case CombatRoll.PASS:
                                     case CombatRoll.CRIT:
@@ -96,13 +100,23 @@ namespace PlannedProject_RPG_
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                if (roll == CombatRoll.FAIL)
+                                switch (roll)
                                 {
-                                    player.takeDamage(player.specialAttack() / 2);
-                                }
-                                else
-                                {
-                                    enemy.takeDamage(player.specialAttack() * (int)roll);
+                                    case CombatRoll.CRIT_FAIL:
+                                        dmg = player.specialAttack() / 2;
+                                        player.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You miss the {0} and hit yourself for {1} damage", enemy.getName(), dmg));
+                                        break;
+                                    case CombatRoll.FAIL:
+                                        Console.WriteLine(String.Format("You miss the {0}", enemy.getName()));
+                                        break;
+                                    case CombatRoll.PASS:
+                                    case CombatRoll.CRIT:
+                                    case CombatRoll.DOUBLT_CRIT:
+                                        dmg = player.specialAttack() * (int)roll;
+                                        enemy.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
+                                        break;
                                 }
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
@@ -137,16 +151,18 @@ namespace PlannedProject_RPG_
 
                         switch (roll)
                         {
-                            case CombatRoll.FAIL:
-                                dmg = player.normalAttack() / 2;
-                                player.takeDamage(dmg);
+                            case CombatRoll.CRIT_FAIL:
+                                enemy.takeDamage(dmg);
                                 Console.WriteLine(String.Format("The {0} misses you and hit itself for {1} damage", enemy.getName(), dmg));
+                                break;
+                            case CombatRoll.FAIL:
+                                Console.WriteLine(String.Format("The {0} misses you.", enemy.getName()));
                                 break;
                             case CombatRoll.PASS:
                             case CombatRoll.CRIT:
                             case CombatRoll.DOUBLT_CRIT:
-                                dmg = player.normalAttack() * (int)roll;
-                                enemy.takeDamage(dmg);
+                                dmg *= (int)roll;
+                                player.takeDamage(dmg);
                                 Console.WriteLine(String.Format("The {0} hit you for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
                                 break;
                         }
@@ -193,7 +209,7 @@ namespace PlannedProject_RPG_
             } else if(AtkRoll == 1)
             {
                 //attack fails
-                return CombatRoll.FAIL;
+                return CombatRoll.CRIT_FAIL;
             } else
             {
                 if(DefRoll == 20)
@@ -221,7 +237,9 @@ namespace PlannedProject_RPG_
             //bool choosing = true;
 
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
+            Console.WriteLine("=======Player=======");
             Console.WriteLine(player.details());
+            Console.WriteLine("=======Enemy=======");
             Console.WriteLine(enemy.details());
             Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 

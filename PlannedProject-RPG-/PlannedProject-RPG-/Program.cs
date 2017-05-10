@@ -12,10 +12,12 @@ namespace PlannedProject_RPG_
         {
             var p = new Hero();
 
-            var e = new Enemy(10, 10, 2, 2, 2, "Bort",new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC),new Armor(ArmorType.CLOTH));
+            var e = new Enemy(10, 10, 10, 2, 2, "Bort",new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC),new Armor(ArmorType.CLOTH));
 
             var cmbt = new Combat(p, e);
             cmbt.Start();
+
+            Console.Read();
         }
     }
 }

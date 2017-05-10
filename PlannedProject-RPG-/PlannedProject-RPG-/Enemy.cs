@@ -166,7 +166,7 @@ namespace PlannedProject_RPG_
 
         public override int normalAttack()
         {
-            int damage = (10) + damageBonus;
+            int damage = (currentWeapon.weaponDamage()) + damageBonus;
             return damage;
         }
 
@@ -175,9 +175,9 @@ namespace PlannedProject_RPG_
             int damage = 0;
             if (currentMP > 10)
             {
-                currentMP -= 10;
                 damage = (15) + spellBonus;
             }
+            currentMP -= 10;
             return damage;
         }
 
