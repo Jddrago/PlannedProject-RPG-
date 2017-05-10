@@ -117,6 +117,10 @@ namespace PlannedProject_RPG_
             {
                 currentHP = hp;
             }
+            if (currentHP > baseHP)
+            {
+                currentHP = baseHP;
+            }
         }
 
         public int getBaseMP()
@@ -142,6 +146,10 @@ namespace PlannedProject_RPG_
             if (mp > 0)
             {
                 currentMP = mp;
+            }
+            if (currentMP > baseMP)
+            {
+                currentMP = baseMP;
             }
         }
 
@@ -319,19 +327,19 @@ namespace PlannedProject_RPG_
 
         public override int specialAttack()
         {
-            int result = (15) + spellBonus;
-            if (result < 0)
+            int damage = 0;
+            if (currentMP >= 10)
             {
-                result = 0;
+                damage = (15) + spellBonus;
             }
             currentMP -= 10;
-            return result;
+            return damage;
         }
 
         public override void takeDamage(int damage)
         {
             currentHP -= damage;
-            if (currentHP < 0)
+            if (currentHP <= 0)
             {
                 isAlive = false;
             }

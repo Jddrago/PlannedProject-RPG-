@@ -16,7 +16,7 @@ namespace PlannedProject_RPG_
         public int useHealthPotion()
         {
             HealthPotion hp = healthPotions.Last();
-            healthPotions.RemoveAt(healthPotions.Count());
+            healthPotions.RemoveAt(healthPotions.Count()-1);
             return hp.Use();
         }
 
@@ -31,7 +31,7 @@ namespace PlannedProject_RPG_
         public int useMagicPotion()
         {
             MagicPotion mp = magicPotions.Last();
-            magicPotions.RemoveAt(magicPotions.Count());
+            magicPotions.RemoveAt(magicPotions.Count()-1);
             return mp.Use();
         }
 

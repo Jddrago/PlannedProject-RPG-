@@ -50,11 +50,10 @@ namespace PlannedProject_RPG_
             this.enemy = enemy;
         }
 
-        public void Start()
+        public bool Start()
         {
             while (running)
             {
-
                 if (player.IsAlive() && enemy.IsAlive())
                 {
 
@@ -66,10 +65,14 @@ namespace PlannedProject_RPG_
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
-                                player.getInventory().useHealthPotion();
+                                var PotionHP = player.getInventory().useHealthPotion();
+                                player.setCurrentHP(player.getCurrentHP() + PotionHP);
+                                Console.WriteLine(String.Format("You drink the potion and heal for {0} HP", PotionHP));
                                 break;
                             case CombatAction.DRINK_MANA_POTION:
-                                player.getInventory().useMagicPotion();
+                                var PotionMP = player.getInventory().useMagicPotion();
+                                player.setCurrentMP(player.getCurrentMP() + PotionMP);
+                                Console.WriteLine(String.Format("You drink the potion and recover {0} MP", PotionMP));
                                 break;
                             case CombatAction.NORMAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
@@ -136,9 +139,9 @@ namespace PlannedProject_RPG_
                         var StatTotal = enemy.getSTR() + enemy.getINT();
                         var r = new Random().NextDouble();
 
-                        var Ratio = enemy.getSTR() / StatTotal;
+                        double Ratio = (double)enemy.getSTR() / (double)StatTotal;
 
-                        if(r < Ratio)
+                        if (r < Ratio)
                         {
                             dmg = enemy.normalAttack();
                         } else 
@@ -146,7 +149,7 @@ namespace PlannedProject_RPG_
                             dmg = enemy.specialAttack();
                         }
 
-                        roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                        roll = GetCombatRoll(enemy, player, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
 
 
                         switch (roll)
@@ -176,6 +179,14 @@ namespace PlannedProject_RPG_
                 }
 
             }
+
+            if (player.IsAlive())
+            {
+                player.gainExp(enemy.getExp());
+            }
+
+            return player.IsAlive();
+
         }
 
         public CombatRoll GetCombatRoll(Character attacker, Character defender, int AtkRoll, int DefRoll)
@@ -237,9 +248,9 @@ namespace PlannedProject_RPG_
             //bool choosing = true;
 
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
-            Console.WriteLine("=======Player=======");
+            Console.WriteLine("\n=======Player=======");
             Console.WriteLine(player.details());
-            Console.WriteLine("=======Enemy=======");
+            Console.WriteLine("\n======="+enemy.getName()+"=======");
             Console.WriteLine(enemy.details());
             Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 
