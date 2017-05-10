@@ -30,6 +30,8 @@ namespace PlannedProject_RPG_
 
             Hero p = null;
 
+
+
             bool rolling = true;
 
             while (rolling)
@@ -43,6 +45,18 @@ namespace PlannedProject_RPG_
                 rolling = resp.Equals("y");
             }
 
+            bool naming = true;
+            string name = "";
+            while (naming)
+            {
+                Console.WriteLine("What do you want to name your hero?");
+                name = Console.ReadLine();
+                Console.WriteLine(String.Format("Are you sure you want to name your hero {0}? (y/n)", name));
+                var res = Console.ReadLine();
+                naming = !res.Equals("y");
+            }
+
+            p.setName(name);
 
             bool run = true;
             
