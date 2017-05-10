@@ -37,7 +37,7 @@ namespace PlannedProject_RPG_
             weapon = type;
             this.attribute = attribute;
             name = attribute.ToString()+" "+weapon.ToString();
-            setWeaponRoll();
+            setWeaponRoll(); 
         }
 
         public WeaponType getWeaponType()

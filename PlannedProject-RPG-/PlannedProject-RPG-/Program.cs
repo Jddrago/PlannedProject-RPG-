@@ -25,7 +25,7 @@ namespace PlannedProject_RPG_
                 new Enemy(5, 10, 10, 3, 3, "Rat", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
                 new Enemy(10, 10, 10, 7, 7, "Thug", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
                 new Enemy(50, 10, 10, 10, 10, "Dragon", new Weapon(WeaponType.AXE, WeaponAttribute.FIRE), new Armor(ArmorType.CLOTH)),
-                new Enemy(250, 1000, 50, 50, 50, "Astral Kraken", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
+                new Enemy(250, 1000, 50, 25, 30, "Astral Kraken", new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC), new Armor(ArmorType.CLOTH)),
         };
 
                     Console.WriteLine();

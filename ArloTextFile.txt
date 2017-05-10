@@ -120,7 +120,7 @@ As you turn to leave you're hit by an interdimensional, sentient speedboat.
 :014
 ==
 #013
-&Combat(Gladiator, 3)
+&Combat(Dragon, 3)
 &Combat(Astral Kraken, 1)
 After winning the tournement, you return to Bespin with great honor. Congradulations!
 *0

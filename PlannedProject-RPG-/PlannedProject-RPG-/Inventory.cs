@@ -13,11 +13,23 @@ namespace PlannedProject_RPG_
         private List<MagicPotion> magicPotions = new List<MagicPotion>(numPotions);
         private Weapon[] weapons = new Weapon[numWeapons];
 
+        public Weapon[] getWeapons()
+        {
+            return weapons;
+        }
+
         public int useHealthPotion()
         {
-            HealthPotion hp = healthPotions.Last();
-            healthPotions.RemoveAt(healthPotions.Count()-1);
-            return hp.Use();
+            if (healthPotions.Count() > 0)
+            {
+                HealthPotion hp = healthPotions.Last();
+                healthPotions.RemoveAt(healthPotions.Count() - 1);
+                return hp.Use();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public void addHealthPotion(HealthPotion potion)
@@ -30,9 +42,16 @@ namespace PlannedProject_RPG_
 
         public int useMagicPotion()
         {
-            MagicPotion mp = magicPotions.Last();
-            magicPotions.RemoveAt(magicPotions.Count()-1);
-            return mp.Use();
+            if (magicPotions.Count() > 0)
+            {
+                MagicPotion mp = magicPotions.Last();
+                magicPotions.RemoveAt(magicPotions.Count() - 1);
+                return mp.Use();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public void addMagicPotion(MagicPotion potion)
