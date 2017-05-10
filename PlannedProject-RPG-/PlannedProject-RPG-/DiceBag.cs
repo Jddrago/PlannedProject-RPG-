@@ -22,6 +22,7 @@ namespace PlannedProject_RPG_
             {
                 die.roll();
                 total += die.getLastRoll();
+                System.Threading.Thread.Sleep(100);
             }
 
             return total;
