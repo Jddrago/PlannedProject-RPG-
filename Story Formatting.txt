@@ -1,0 +1,22 @@
+scenes with no choices:
+
+#SCENE_ID
+Description
+&Combat(Thug, 3)
+Description
+*0
+:next_scene_id
+==
+
+------------------------------------------------------
+
+scenes with choices:
+
+#SCENE_ID
+Description
+&Combat(Thug, 3)
+Description
+*Number of options
++option :scene_id
++option :scene_id
+==
