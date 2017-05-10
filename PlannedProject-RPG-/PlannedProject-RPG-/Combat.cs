@@ -199,6 +199,26 @@ namespace PlannedProject_RPG_
 
         }
 
+        public void changeEquipment(Hero h)
+        {
+            int index = 0;
+            string input;
+            int userChoice = -1;
+            foreach (Weapon weapon in h.getInventory().getWeapons())
+            {
+                Console.WriteLine(index + ": " + weapon.weaponDetails());
+                index++;
+            }
+            while (userChoice == -1 || userChoice >= 0 && userChoice < h.getInventory().getWeapons().Length)
+            {
+                input = Console.ReadLine();
+                int.TryParse(input, out userChoice);
+            }
+
+            h.setWeapon(h.getInventory().getWeaponAtIndex(userChoice));
+
+        }
+
         public CombatRoll GetCombatRoll(Character attacker, Character defender, int AtkRoll, int DefRoll)
         {
             var AtkMods = AtkRoll + attacker.getStrikeBonus();

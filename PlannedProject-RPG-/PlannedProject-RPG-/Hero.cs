@@ -49,6 +49,7 @@ namespace PlannedProject_RPG_
             return inventory;
         }
 
+
         public void setName(string pname)
         {
             if (pname.Equals(null) || pname.Equals(""))
