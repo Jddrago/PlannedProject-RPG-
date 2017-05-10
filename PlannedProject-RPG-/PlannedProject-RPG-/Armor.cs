@@ -11,13 +11,14 @@ namespace PlannedProject_RPG_
         CLOTH,
         LEATHER,
         CHAIN,
-        PLATE
+        PLATE,
+        NATURAL
     }
 
     public class Armor
     {
         private ArmorType type;
-        private int defenseRating, agilityMod;
+        private int defenseRating = 8, agilityMod = 6;
 
         public Armor(ArmorType t)
         {
@@ -42,7 +43,7 @@ namespace PlannedProject_RPG_
                 case ArmorType.CLOTH: defenseRating = 2; agilityMod = 4; break;
                 case ArmorType.LEATHER: defenseRating = 4; agilityMod = 2; break;
                 case ArmorType.CHAIN: defenseRating = 6; agilityMod = -2; break;
-                case ArmorType.PLATE: defenseRating = 10; agilityMod = -4; break; 
+                case ArmorType.PLATE: defenseRating = 10; agilityMod = -4; break;
             }
         }
 

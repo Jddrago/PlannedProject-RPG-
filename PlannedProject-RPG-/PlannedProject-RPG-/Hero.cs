@@ -10,6 +10,7 @@ namespace PlannedProject_RPG_
     class Hero : Character
     {
         private double expNeeded = 500;
+        private Inventory inventory = new Inventory();
 
         public Hero()
         {
@@ -19,6 +20,7 @@ namespace PlannedProject_RPG_
             setHPandStats();
             currentWeapon = new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC);
             currentArmor = new Armor(ArmorType.CLOTH);
+            initInventory();
         }
 
         private void setHPandStats()
@@ -31,6 +33,20 @@ namespace PlannedProject_RPG_
             calcStrikeBonus();
             calcDodgeBonus();
             calcSpellBonus();
+        }
+
+        private void initInventory()
+        {
+            inventory.addHealthPotion(new HealthPotion());
+            inventory.addHealthPotion(new HealthPotion());
+            inventory.addMagicPotion(new MagicPotion());
+            inventory.addMagicPotion(new MagicPotion());
+            inventory.addWeapon(currentWeapon);
+        }
+
+        public Inventory getInventory()
+        {
+            return inventory;
         }
 
         public void setName(string pname)

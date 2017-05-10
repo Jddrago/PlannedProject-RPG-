@@ -82,7 +82,32 @@ namespace PlannedProject_RPG_
                     break;
                 }
             }
-            
+        }
+
+        public int numHealthPotions()
+        {
+            int temp = 0;
+            for (int i = 0; i < healthPotions.Length; i++)
+            {
+                if (healthPotions[i] != null)
+                {
+                    temp++;
+                }
+            }
+            return temp;
+        }
+
+        public int numMagicPotions()
+        {
+            int temp = 0;
+            for (int i = 0; i < magicPotions.Length; i++)
+            {
+                if (magicPotions[i] != null)
+                {
+                    temp++;
+                }
+            }
+            return temp;
         }
     }
 }
