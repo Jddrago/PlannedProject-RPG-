@@ -42,6 +42,7 @@ namespace PlannedProject_RPG_
             inventory.addMagicPotion(new MagicPotion());
             inventory.addMagicPotion(new MagicPotion());
             inventory.addWeapon(currentWeapon);
+            inventory.addWeapon(new Weapon(WeaponType.MACE,WeaponAttribute.LIGHTNING));
         }
 
         public Inventory getInventory()
