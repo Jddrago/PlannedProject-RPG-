@@ -207,10 +207,13 @@ namespace PlannedProject_RPG_
             int userChoice = -1;
             foreach (Weapon weapon in h.getInventory().getWeapons())
             {
-                Console.WriteLine(index + ": " + weapon.weaponDetails());
-                index++;
+                if(weapon != null)
+                {
+                    Console.WriteLine(index + ": " + weapon.weaponDetails());
+                    index++;
+                }
             }
-            while (userChoice == -1 || userChoice >= 0 && userChoice < h.getInventory().getWeapons().Length)
+            while (userChoice == -1 || userChoice < 0 && userChoice > h.getInventory().getWeapons().Length)
             {
                 input = Console.ReadLine();
                 int.TryParse(input, out userChoice);
