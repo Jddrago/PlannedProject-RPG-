@@ -123,7 +123,8 @@ namespace PlannedProject_RPG_
                                 }
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
-                                throw new IndexOutOfRangeException();
+                                changeEquipment(player);
+                                break;
                             //break;
                             case CombatAction.FLEE:
 
