@@ -91,7 +91,7 @@ namespace PlannedProject_RPG_
                                     case CombatRoll.DOUBLT_CRIT:
                                         dmg = player.normalAttack() * (int)roll;
                                         enemy.takeDamage(dmg);
-                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll==CombatRoll.PASS)?"":((roll==CombatRoll.CRIT)?"(CRIT)":"(DOUBLE CRIT)"))));
+                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
                                         break;
                                 }
 
@@ -124,7 +124,7 @@ namespace PlannedProject_RPG_
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
                                 throw new IndexOutOfRangeException();
-                                //break;
+                            //break;
                             case CombatAction.FLEE:
 
                                 break;
@@ -136,6 +136,8 @@ namespace PlannedProject_RPG_
                     {
                         var dmg = -1;
                         CombatRoll roll;
+
+
                         var StatTotal = enemy.getSTR() + enemy.getINT();
                         var r = new Random().NextDouble();
 
@@ -144,9 +146,17 @@ namespace PlannedProject_RPG_
                         if (r < Ratio)
                         {
                             dmg = enemy.normalAttack();
-                        } else 
+                        }
+                        else
                         {
-                            dmg = enemy.specialAttack();
+                            if (enemy.getCurrentMP() >= 10)
+                            {
+                                dmg = enemy.specialAttack();
+                            }
+                            else
+                            {
+                                dmg = enemy.normalAttack();
+                            }
                         }
 
                         roll = GetCombatRoll(enemy, player, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
@@ -196,38 +206,44 @@ namespace PlannedProject_RPG_
 
             Console.WriteLine(String.Format("==================\n\nATKROLL: {0}\tATKMODS: {1}\nDEFROLL: {2}\tDEFMODS: {3}\n\n==================", AtkRoll, AtkMods, DefRoll, DefMods));
 
-            if(AtkRoll == 20)
+            if (AtkRoll == 20)
             {
-                if(DefRoll == 20)
+                if (DefRoll == 20)
                 {
                     //get the stats and find who won
-                    if(AtkMods > DefMods)
+                    if (AtkMods > DefMods)
                     {
                         return CombatRoll.PASS;
-                    } else
+                    }
+                    else
                     {
                         return CombatRoll.FAIL;
                     }
-                } else if(DefRoll == 1)
+                }
+                else if (DefRoll == 1)
                 {
                     //double crit
                     return CombatRoll.DOUBLT_CRIT;
-                } else
+                }
+                else
                 {
                     //attack passes before bonuses, CRIT
                     return CombatRoll.CRIT;
                 }
-            } else if(AtkRoll == 1)
+            }
+            else if (AtkRoll == 1)
             {
                 //attack fails
                 return CombatRoll.CRIT_FAIL;
-            } else
+            }
+            else
             {
-                if(DefRoll == 20)
+                if (DefRoll == 20)
                 {
                     //fail
                     return CombatRoll.FAIL;
-                } else
+                }
+                else
                 {
                     //check bonuses and find who won
                     if (AtkMods > DefMods)
@@ -250,7 +266,7 @@ namespace PlannedProject_RPG_
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
             Console.WriteLine("\n=======Player=======");
             Console.WriteLine(player.details());
-            Console.WriteLine("\n======="+enemy.getName()+"=======");
+            Console.WriteLine("\n=======" + enemy.getName() + "=======");
             Console.WriteLine(enemy.details());
             Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 
@@ -263,7 +279,8 @@ namespace PlannedProject_RPG_
                     try
                     {
                         return this.ParseAction(choice);
-                    } catch (IndexOutOfRangeException e)
+                    }
+                    catch (IndexOutOfRangeException e)
                     {
                         Console.WriteLine("Invalid choice; Please try again.");
                     }

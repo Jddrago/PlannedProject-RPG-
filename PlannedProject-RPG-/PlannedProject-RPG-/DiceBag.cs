@@ -24,7 +24,7 @@ namespace PlannedProject_RPG_
                 total += die.getLastRoll();
                 System.Threading.Thread.Sleep(100);
             }
-            Console.WriteLine(numDice +"d"+numSidesPerDice+"="+total);
+            //Console.WriteLine(numDice +"d"+numSidesPerDice+"="+total);
             return total;
         }
 
@@ -42,7 +42,7 @@ namespace PlannedProject_RPG_
                 total += die.getLastRoll();
             }
 
-            Console.WriteLine(numDice + "d" + numSidesPerDice + "=" + (total+mod));
+            //Console.WriteLine(numDice + "d" + numSidesPerDice + "=" + (total+mod));
             return total+mod;
         }
     }
