@@ -61,6 +61,7 @@ namespace PlannedProject_RPG_
                     {
                         var action = GetPlayerAction();
                         var dmg = -1;
+                        CombatRoll roll ;
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
@@ -70,11 +71,19 @@ namespace PlannedProject_RPG_
                                 player.getInventory().useMagicPotion();
                                 break;
                             case CombatAction.NORMAL_ATTACK:
-                                dmg = player.normalAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                enemy.takeDamage(dmg);
+                                roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                dmg = player.normalAttack() * (int)roll;
+                                if(roll == CombatRoll.FAIL)
+                                {
+                                    player.takeDamage(dmg / 2);
+                                } else
+                                {
+                                    enemy.takeDamage(dmg);
+                                }
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
-                                dmg = player.specialAttack() * (int)GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                                dmg = player.specialAttack() * (int)roll;
                                 enemy.takeDamage(dmg);
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
@@ -90,6 +99,7 @@ namespace PlannedProject_RPG_
                     else
                     {
                         var dmg = -1;
+                        CombatRoll roll;
                         var StatTotal = enemy.getSTR() + enemy.getINT();
                         var r = new Random().NextDouble();
 
@@ -103,9 +113,15 @@ namespace PlannedProject_RPG_
                             dmg = enemy.specialAttack();
                         }
 
-                        if(dmg == -1)
+                        roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+                        dmg *= (int)roll;
+                        if (roll == CombatRoll.FAIL)
                         {
-                            throw new NotImplementedException();
+                            enemy.takeDamage(dmg / 2);
+                        }
+                        else
+                        {
+                            player.takeDamage(dmg);
                         }
 
                     }
