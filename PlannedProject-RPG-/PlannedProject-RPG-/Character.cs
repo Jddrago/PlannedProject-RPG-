@@ -25,5 +25,7 @@ namespace PlannedProject_RPG_
         public abstract int specialAttack();
         public abstract void takeDamage(int damage);
         public abstract string details();
+        public abstract int getDodgeBonus();
+        public abstract int getStrikeBonus();
     }
 }
