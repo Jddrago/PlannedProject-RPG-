@@ -8,10 +8,9 @@ namespace PlannedProject_RPG_
 {
     class Inventory
     {
-        private static int numPotions = 5,numWeapons = 3;
-        private HealthPotion[] healthPotions = new HealthPotion[numPotions];
-        private MagicPotion[] magicPotions = new MagicPotion[numPotions];
-        private Weapon[] weapons = new Weapon[numWeapons];
+        private HealthPotion[] healthPotions;
+        private MagicPotion[] magicPotions;
+        private Weapon[] weapons;
 
         public int useHealthPotion()
         {
@@ -82,32 +81,7 @@ namespace PlannedProject_RPG_
                     break;
                 }
             }
-        }
-
-        public int numHealthPotions()
-        {
-            int temp = 0;
-            for (int i = 0; i < healthPotions.Length; i++)
-            {
-                if (healthPotions[i] != null)
-                {
-                    temp++;
-                }
-            }
-            return temp;
-        }
-
-        public int numMagicPotions()
-        {
-            int temp = 0;
-            for (int i = 0; i < magicPotions.Length; i++)
-            {
-                if (magicPotions[i] != null)
-                {
-                    temp++;
-                }
-            }
-            return temp;
+            
         }
     }
 }
