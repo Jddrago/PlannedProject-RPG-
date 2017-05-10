@@ -73,7 +73,7 @@ namespace PlannedProject_RPG_
         public int weaponDamage()
         {
             string[] temp = weaponRoll.Split('d');
-            return DiceBag.rollDice(int.Parse(temp[0]),int.Parse(temp[1]),int.Parse(this.attribute.ToString()));
+            return DiceBag.rollDice(int.Parse(temp[0]),int.Parse(temp[1]),(int)attribute);
         }
 
         public string weaponDetails()
