@@ -75,8 +75,7 @@ namespace PlannedProject_RPG_
                 Console.WriteLine(p.details());
 
             }
-
-            Console.Read();
+            
         }
     }
 }
