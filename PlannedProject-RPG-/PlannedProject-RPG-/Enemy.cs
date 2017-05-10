@@ -18,7 +18,11 @@ namespace PlannedProject_RPG_
             STR = str;
             DEX = dex;
             INT = intel;
-            setExp((new Random().Next(20) +1 )*10);
+            calcDamageBonus();
+            calcDodgeBonus();
+            calcSpellBonus();
+            calcStrikeBonus();
+            setExp((new Random().Next(40) +1 )*10);
             currentWeapon = w;
             currentArmor = a;
         }
@@ -45,7 +49,14 @@ namespace PlannedProject_RPG_
         }
         public void setCurrentHP(int hp)
         {
-            currentHP = hp;
+            if (hp > 0)
+            {
+                currentHP = hp;
+            }
+            if (currentHP > baseHP)
+            {
+                currentHP = baseHP;
+            }
         }
         public int getBaseMP()
         {
@@ -62,7 +73,14 @@ namespace PlannedProject_RPG_
         }
         public void setCurrentMP(int mp)
         {
-            currentMP = mp;
+            if (mp > 0)
+            {
+                currentMP = mp;
+            }
+            if (currentMP > baseMP)
+            {
+                currentMP = baseMP;
+            }
         }
         public int getSTR()
         {
@@ -113,37 +131,72 @@ namespace PlannedProject_RPG_
         {
             INTMod = mod;
         }
+        public void calcDamageBonus()
+        {
+            if (STR > 15)
+            {
+                damageBonus = STR - 15;
+            }
+            else if (STR < 10)
+            {
+                damageBonus = STR - 10;
+            }
+        }
+
+        public void calcStrikeBonus()
+        {
+            if (DEX > 14)
+            {
+                strikeBonus = (DEX - 14) / 2;
+            }
+            else if (DEX < 10)
+            {
+                strikeBonus = (DEX - 10) / 2;
+            }
+        }
+
+        public void calcDodgeBonus()
+        {
+            if (DEX > 15)
+            {
+                dodgeBonus = (DEX - 15) / 2;
+            }
+            else if (DEX < 11)
+            {
+                dodgeBonus = (DEX - 11) / 2;
+            }
+        }
+
+        public void calcSpellBonus()
+        {
+            if (INT > 15)
+            {
+                spellBonus = (INT - 15) * 2;
+            }
+            else if (INT < 10)
+            {
+                spellBonus = (INT - 10) * 2;
+            }
+        }
+
         public int getDamageBonus()
         {
             return damageBonus;
         }
-        public void setDamageBonus(int bonus)
-        {
-            damageBonus = bonus;
-        }
+
         public override int getStrikeBonus()
         {
             return strikeBonus;
         }
-        public void setStrikeBonus(int bonus)
-        {
-            strikeBonus = bonus;
-        }
+
         public override int getDodgeBonus()
         {
             return dodgeBonus;
         }
-        public void setDodgeBonus(int bonus)
-        {
-            dodgeBonus = bonus;
-        }
+
         public int getSpellBonus()
         {
             return spellBonus;
-        }
-        public void setSpellBonus(int bonus)
-        {
-            spellBonus = bonus;
         }
 
         public double getExp()
@@ -166,25 +219,25 @@ namespace PlannedProject_RPG_
 
         public override int normalAttack()
         {
-            int damage = (10) + damageBonus;
+            int damage = (currentWeapon.weaponDamage()) + damageBonus;
             return damage;
         }
 
         public override int specialAttack()
         {
             int damage = 0;
-            if (currentMP > 10)
+            if (currentMP >= 10)
             {
-                currentMP -= 10;
                 damage = (15) + spellBonus;
             }
+            currentMP -= 10;
             return damage;
         }
 
         public override void takeDamage(int damage)
         {
             currentHP -= damage;
-            if (currentHP < 0)
+            if (currentHP <= 0)
             {
                 isAlive = false;
             }

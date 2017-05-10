@@ -18,7 +18,7 @@ namespace PlannedProject_RPG_
             calcDEX();
             calcINT();
             setHPandStats();
-            currentWeapon = new Weapon(WeaponType.DAGGER,WeaponAttribute.BASIC);
+            currentWeapon = new Weapon(WeaponType.DAGGER, WeaponAttribute.BASIC);
             currentArmor = new Armor(ArmorType.CLOTH);
             initInventory();
         }
@@ -71,7 +71,7 @@ namespace PlannedProject_RPG_
             STR = DiceBag.rollDice(3, 6);
             if (STR > 16)
             {
-                STR += DiceBag.rollDice(2,6);
+                STR += DiceBag.rollDice(2, 6);
             }
         }
 
@@ -117,6 +117,10 @@ namespace PlannedProject_RPG_
             {
                 currentHP = hp;
             }
+            if (currentHP > baseHP)
+            {
+                currentHP = baseHP;
+            }
         }
 
         public int getBaseMP()
@@ -142,6 +146,10 @@ namespace PlannedProject_RPG_
             if (mp > 0)
             {
                 currentMP = mp;
+            }
+            if (currentMP > baseMP)
+            {
+                currentMP = baseMP;
             }
         }
 
@@ -301,7 +309,7 @@ namespace PlannedProject_RPG_
         private void levelUp()
         {
             lvl++;
-            setStrength(getStrength() + DiceBag.rollDice(1,4));
+            setStrength(getStrength() + DiceBag.rollDice(1, 4));
             setDexterity(getDexterity() + DiceBag.rollDice(1, 4));
             setIntelligence(getIntelligence() + DiceBag.rollDice(1, 4));
             setHPandStats();
@@ -319,19 +327,19 @@ namespace PlannedProject_RPG_
 
         public override int specialAttack()
         {
-            int result = (15) + spellBonus;
-            if (result < 0)
+            int damage = 0;
+            if (currentMP >= 10)
             {
-                result = 0;
+                damage = (15) + spellBonus;
             }
             currentMP -= 10;
-            return result;
+            return damage;
         }
 
         public override void takeDamage(int damage)
         {
             currentHP -= damage;
-            if (currentHP < 0)
+            if (currentHP <= 0)
             {
                 isAlive = false;
             }
@@ -340,19 +348,19 @@ namespace PlannedProject_RPG_
         public override string details()
         {
             return "Name: " + getName()
-                +"\nLevel: "+ lvl
-                +"\nEXP: " + exp +"/"+ expNeeded
-                +"\nHP: " + getCurrentHP() + "/" + getBaseHP()
-                +"\nMP: " + getCurrentMP() + "/" + getBaseMP()
-                +"\nSTR: " + getStrength()
-                +"\nDEX: " + getDexterity()
-                +"\nINT: " + getIntelligence()
-                +"\nDamage Bonus: " + getDamageBonus()
-                +"\nStrike Bonus: " + getStrikeBonus()
-                +"\nDodge Bonus: " + getDodgeBonus()
-                +"\nSpell Bonus: " + getSpellBonus()
-                +"\nWeapon: " + currentWeapon.weaponDetails()
-                +"\nArmor: " + currentArmor.armorDetails();
+                + "\nLevel: " + lvl
+                + "\nEXP: " + exp + "/" + expNeeded
+                + "\nHP: " + getCurrentHP() + "/" + getBaseHP()
+                + "\nMP: " + getCurrentMP() + "/" + getBaseMP()
+                + "\nSTR: " + getStrength()
+                + "\nDEX: " + getDexterity()
+                + "\nINT: " + getIntelligence()
+                + "\nDamage Bonus: " + getDamageBonus()
+                + "\nStrike Bonus: " + getStrikeBonus()
+                + "\nDodge Bonus: " + getDodgeBonus()
+                + "\nSpell Bonus: " + getSpellBonus()
+                + "\nWeapon: " + currentWeapon.weaponDetails()
+                + "\nArmor: " + currentArmor.armorDetails();
         }
     }
 }

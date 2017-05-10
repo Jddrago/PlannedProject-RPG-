@@ -19,6 +19,7 @@ namespace PlannedProject_RPG_
 
     enum CombatRoll
     {
+        CRIT_FAIL = -1,
         FAIL = 0,
         PASS = 1,
         CRIT = 2,
@@ -49,50 +50,81 @@ namespace PlannedProject_RPG_
             this.enemy = enemy;
         }
 
-        public void Start()
+        public bool Start()
         {
             while (running)
             {
-
                 if (player.IsAlive() && enemy.IsAlive())
                 {
 
                     if (playerTurn)
                     {
                         var action = GetPlayerAction();
+                        var dmg = -1;
                         CombatRoll roll;
                         switch (action)
                         {
                             case CombatAction.DRINK_HEALTH_POTION:
-                                player.getInventory().useHealthPotion();
+                                var PotionHP = player.getInventory().useHealthPotion();
+                                player.setCurrentHP(player.getCurrentHP() + PotionHP);
+                                Console.WriteLine(String.Format("You drink the potion and heal for {0} HP", PotionHP));
                                 break;
                             case CombatAction.DRINK_MANA_POTION:
-                                player.getInventory().useMagicPotion();
+                                var PotionMP = player.getInventory().useMagicPotion();
+                                player.setCurrentMP(player.getCurrentMP() + PotionMP);
+                                Console.WriteLine(String.Format("You drink the potion and recover {0} MP", PotionMP));
                                 break;
                             case CombatAction.NORMAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                if(roll == CombatRoll.FAIL)
+                                switch (roll)
                                 {
-                                    player.takeDamage(player.normalAttack() / 2);
-                                } else
-                                {
-                                    enemy.takeDamage(player.normalAttack() * (int)roll);
+                                    case CombatRoll.CRIT_FAIL:
+                                        dmg = player.normalAttack() / 2;
+                                        player.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You miss the {0} and hit yourself for {1} damage", enemy.getName(), dmg));
+                                        break;
+                                    case CombatRoll.FAIL:
+                                        Console.WriteLine(String.Format("You miss the {0}", enemy.getName()));
+                                        break;
+                                    case CombatRoll.PASS:
+                                    case CombatRoll.CRIT:
+                                    case CombatRoll.DOUBLT_CRIT:
+                                        dmg = player.normalAttack() * (int)roll;
+                                        enemy.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
+                                        break;
                                 }
+
+                                //if(roll == CombatRoll.FAIL)
+                                //{
+                                //} else
+                                //{
+                                //}
                                 break;
                             case CombatAction.SPECIAL_ATTACK:
                                 roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                                if (roll == CombatRoll.FAIL)
+                                switch (roll)
                                 {
-                                    player.takeDamage(player.specialAttack() / 2);
-                                }
-                                else
-                                {
-                                    enemy.takeDamage(player.specialAttack() * (int)roll);
+                                    case CombatRoll.CRIT_FAIL:
+                                        dmg = player.specialAttack() / 2;
+                                        player.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You miss the {0} and hit yourself for {1} damage", enemy.getName(), dmg));
+                                        break;
+                                    case CombatRoll.FAIL:
+                                        Console.WriteLine(String.Format("You miss the {0}", enemy.getName()));
+                                        break;
+                                    case CombatRoll.PASS:
+                                    case CombatRoll.CRIT:
+                                    case CombatRoll.DOUBLT_CRIT:
+                                        dmg = player.specialAttack() * (int)roll;
+                                        enemy.takeDamage(dmg);
+                                        Console.WriteLine(String.Format("You hit the {0} for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
+                                        break;
                                 }
                                 break;
                             case CombatAction.CHANGE_EQUIPMENT:
                                 throw new IndexOutOfRangeException();
-                                //break;
+                            //break;
                             case CombatAction.FLEE:
 
                                 break;
@@ -104,28 +136,48 @@ namespace PlannedProject_RPG_
                     {
                         var dmg = -1;
                         CombatRoll roll;
+
+
                         var StatTotal = enemy.getSTR() + enemy.getINT();
                         var r = new Random().NextDouble();
 
-                        var Ratio = enemy.getSTR() / StatTotal;
+                        double Ratio = (double)enemy.getSTR() / (double)StatTotal;
 
-                        if(r < Ratio)
+                        if (r < Ratio)
                         {
                             dmg = enemy.normalAttack();
-                        } else 
-                        {
-                            dmg = enemy.specialAttack();
-                        }
-
-                        roll = GetCombatRoll(player, enemy, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
-                        if (roll == CombatRoll.FAIL)
-                        {
-                            enemy.takeDamage(dmg / 2);
                         }
                         else
                         {
-                            dmg *= (int)roll;
-                            player.takeDamage(dmg);
+                            if (enemy.getCurrentMP() >= 10)
+                            {
+                                dmg = enemy.specialAttack();
+                            }
+                            else
+                            {
+                                dmg = enemy.normalAttack();
+                            }
+                        }
+
+                        roll = GetCombatRoll(enemy, player, DiceBag.rollDice(1, 20), DiceBag.rollDice(1, 20));
+
+
+                        switch (roll)
+                        {
+                            case CombatRoll.CRIT_FAIL:
+                                enemy.takeDamage(dmg);
+                                Console.WriteLine(String.Format("The {0} misses you and hit itself for {1} damage", enemy.getName(), dmg));
+                                break;
+                            case CombatRoll.FAIL:
+                                Console.WriteLine(String.Format("The {0} misses you.", enemy.getName()));
+                                break;
+                            case CombatRoll.PASS:
+                            case CombatRoll.CRIT:
+                            case CombatRoll.DOUBLT_CRIT:
+                                dmg *= (int)roll;
+                                player.takeDamage(dmg);
+                                Console.WriteLine(String.Format("The {0} hit you for {1} damage {2}", enemy.getName(), dmg, ((roll == CombatRoll.PASS) ? "" : ((roll == CombatRoll.CRIT) ? "(CRIT)" : "(DOUBLE CRIT)"))));
+                                break;
                         }
 
                     }
@@ -137,6 +189,14 @@ namespace PlannedProject_RPG_
                 }
 
             }
+
+            if (player.IsAlive())
+            {
+                player.gainExp(enemy.getExp());
+            }
+
+            return player.IsAlive();
+
         }
 
         public CombatRoll GetCombatRoll(Character attacker, Character defender, int AtkRoll, int DefRoll)
@@ -144,38 +204,46 @@ namespace PlannedProject_RPG_
             var AtkMods = AtkRoll + attacker.getStrikeBonus();
             var DefMods = DefRoll + defender.getDodgeBonus();
 
-            if(AtkRoll == 20)
+            Console.WriteLine(String.Format("==================\n\nATKROLL: {0}\tATKMODS: {1}\nDEFROLL: {2}\tDEFMODS: {3}\n\n==================", AtkRoll, AtkMods, DefRoll, DefMods));
+
+            if (AtkRoll == 20)
             {
-                if(DefRoll == 20)
+                if (DefRoll == 20)
                 {
                     //get the stats and find who won
-                    if(AtkMods > DefMods)
+                    if (AtkMods > DefMods)
                     {
                         return CombatRoll.PASS;
-                    } else
+                    }
+                    else
                     {
                         return CombatRoll.FAIL;
                     }
-                } else if(DefRoll == 1)
+                }
+                else if (DefRoll == 1)
                 {
                     //double crit
                     return CombatRoll.DOUBLT_CRIT;
-                } else
+                }
+                else
                 {
                     //attack passes before bonuses, CRIT
                     return CombatRoll.CRIT;
                 }
-            } else if(AtkRoll == 1)
+            }
+            else if (AtkRoll == 1)
             {
                 //attack fails
-                return CombatRoll.FAIL;
-            } else
+                return CombatRoll.CRIT_FAIL;
+            }
+            else
             {
-                if(DefRoll == 20)
+                if (DefRoll == 20)
                 {
                     //fail
                     return CombatRoll.FAIL;
-                } else
+                }
+                else
                 {
                     //check bonuses and find who won
                     if (AtkMods > DefMods)
@@ -196,7 +264,9 @@ namespace PlannedProject_RPG_
             //bool choosing = true;
 
             //Console.WriteLine(String.Format("Enemy\nHP: {3}/{4}\n===========================\nPLAYER\nHP: {0}/{1}\tMP: {2}/{3}\nInventory:", player.getCurrentHP(), player.getBaseHP(), player.getCurrentMP(), player.getBaseMP(), enemy.getCurrentHP(), enemy.getBaseHP()));
+            Console.WriteLine("\n=======Player=======");
             Console.WriteLine(player.details());
+            Console.WriteLine("\n=======" + enemy.getName() + "=======");
             Console.WriteLine(enemy.details());
             Console.WriteLine("\nWhat do you do?\n\t1)Normal Attack\n\t2)Special Attack\n\t3)Change Equipment\n\t4)Drink Health Potion\n\t5)Drink Mana Potion");
 
@@ -209,7 +279,8 @@ namespace PlannedProject_RPG_
                     try
                     {
                         return this.ParseAction(choice);
-                    } catch (IndexOutOfRangeException e)
+                    }
+                    catch (IndexOutOfRangeException e)
                     {
                         Console.WriteLine("Invalid choice; Please try again.");
                     }
